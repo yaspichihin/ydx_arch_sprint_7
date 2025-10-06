@@ -1,0 +1,18 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: mistral
+    ports:
+      - "6000:11434"
+    volumes:
+      - ollama:/root/.ollama
+    entrypoint: >
+      sh -c "
+      ollama serve &
+      sleep 2 &&
+      ollama pull mistral &&
+      tail -f /dev/null
+      "
+
+volumes:
+  ollama:
